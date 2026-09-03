@@ -61,13 +61,36 @@ console.log(`Total: ${maiorComprador.total}`);
 
 
 //PARTE 5: COERÇÃO DE TIPOS
+//coerção de tipos é quando o JS converte um valor de um tipo pra outro
+//sozinho, sem eu pedir, pra conseguir fazer a operação
 
 console.log("\n===== PARTE 5 =====");
-console.log("5" + 2);      //+ com string junta como texto -> "52"
-console.log("5" - 2);      //- só existe pra número, então "5" vira 5 -> 3
-console.log(true + 1);     //true conta como 1 -> 2
-console.log(false == 0);   //== converte os tipos, false vira 0 -> true
-console.log(false === 0);  //=== não converte nada, tipos diferentes -> false
+
+console.log("5" + 2);
+//resultado: "52"
+//o + quando tem uma string do lado vira concatenação (junta como texto)
+//o número 2 é convertido pra "2" e colado no final de "5"
+
+console.log("5" - 2);
+//resultado: 3
+//o - só existe pra fazer conta com número, não tem "subtração de texto"
+//então o JS converte "5" string pra 5 número antes de subtrair
+
+console.log(true + 1);
+//resultado: 2
+//em conta matemática, true vira 1 e false vira 0
+//então true + 1 vira 1 + 1
+
+console.log(false == 0);
+//resultado: true
+//== é a igualdade "fraca": ela converte os tipos antes de comparar
+//false é convertido pra 0, e 0 == 0 é verdadeiro
+
+console.log(false === 0);
+//resultado: false
+//=== é a igualdade "estrita": não converte nada, compara tipo e valor
+//false é boolean e 0 é number, tipos diferentes, então é falso
+//mesmo os valores "parecendo" iguais
 
 
 //PARTE 6: THIS EM FUNCTION NORMAL VS ARROW FUNCTION
@@ -77,7 +100,10 @@ console.log("\n===== PARTE 6 =====");
 const pessoa1 = {
   nome: "Maria",
   falar: function () {
-    console.log(this.nome); //aqui this é quem chamou (pessoa1), então funciona
+    console.log(this.nome);
+    //funciona e imprime "Maria"
+    //numa function normal, o this é definido por quem chama ela
+    //como eu chamei com pessoa1.falar(), o this vira pessoa1
   }
 };
 pessoa1.falar();
@@ -85,10 +111,21 @@ pessoa1.falar();
 const pessoa2 = {
   nome: "Maria",
   falar: () => {
-    console.log(this.nome); //arrow function não pega o this do objeto, por isso dá undefined
+    console.log(this.nome);
+    //não funciona, imprime undefined
+    //arrow function não tem this próprio
+    //ela usa o this do lugar onde foi escrita (o arquivo/módulo)
+    //e não do objeto que chamou ela, por isso não acha o "nome"
   }
 };
 pessoa2.falar();
+
+//RESPOSTAS:
+//1)o código 1 (function normal) funciona corretamente
+//2)o código 2 não funciona porque arrow function não cria seu próprio this,
+//ela pega o this de fora (do escopo onde foi definida), que não é o objeto pessoa2
+//3)em arrow function, o this é herdado do escopo onde a função foi ESCRITA,
+//e não de quem CHAMA ela (diferente da function normal)
 
 
 //PARTE 7: RELATÓRIO FINAL 
